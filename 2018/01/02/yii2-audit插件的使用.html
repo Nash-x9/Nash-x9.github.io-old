@@ -1,0 +1,688 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://war9.cn">
+    <!--SEO-->
+
+<meta name="description" content="小九博客致力于分享程序员路上遇到的各种坑"/>
+
+
+<meta name="keywords" content="小九博客,PHP,程序员,yii2,教程"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Yii2 Audit插件的使用【日志记录插件】 | 小九博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/xcode.min.css?rev=9.12.0">
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1271783103&web_id=1271783103" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Hello World </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw fa-home"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/php/"><i class="fa fa-fw "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/backend/"><i class="fa fa-fw "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/frontend/"><i class="fa fa-fw "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/other/"><i class="fa fa-fw "></i>其它</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/myspace/"><i class="fa fa-fw "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/about/"><i class="fa fa-fw "></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Yii2 Audit插件的使用【日志记录插件】">
+            
+            Yii2 Audit插件的使用【日志记录插件】
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Yii2</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            Yii2
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/03</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="Yii2-Audit-插件的使用"><a href="#Yii2-Audit-插件的使用" class="headerlink" title="Yii2 Audit 插件的使用"></a>Yii2 Audit 插件的使用</h1><blockquote>
+<p>Yii2-Audit插件是一个功能齐全的，用于记录和显示web 、 cli请求、数据库更改、php /js错误和相关数据的插件。</p>
+<p>并且该插件是以module的形式安装于Yii中，使用起来极为方便。</p>
+<p>项目地址：<a href="https://github.com/bedezign/yii2-audit" target="_blank" rel="noopener">https://github.com/bedezign/yii2-audit</a></p>
+<p>文档地址：<a href="https://bedezign.github.io/yii2-audit/" target="_blank" rel="noopener">https://bedezign.github.io/yii2-audit/</a></p>
+</blockquote>
+<h2 id="功能清单-点击可跳转到对应介绍"><a href="#功能清单-点击可跳转到对应介绍" class="headerlink" title="功能清单[点击可跳转到对应介绍]"></a>功能清单[点击可跳转到对应介绍]</h2><ul>
+<li><a href="#2.1">【Entries】记录Web、Cli请求 <strong>(核心功能)</strong></a></li>
+<li><a href="#2.1">【Trails】记录数据库变更</a></li>
+<li><a href="#2.3">【Javascripts】记录JavaScript错误记录</a></li>
+<li><a href="#2.4">【Errors】记录Yii2错误记录</a></li>
+<li>记录cURL请求</li>
+<li>记录SOAP请求</li>
+<li>记录请求中发送的邮件</li>
+<li>数据可视化统计</li>
+</ul>
+<hr>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a><strong>1.安装</strong></h2><ul>
+<li><p>1.1 使用Composer安装源文件</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer <span class="built_in">require</span> --prefer-dist bedezign/yii2-audit:<span class="string">"dev-master"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1.2 导入数据库</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php yii migrate --migrationPath=<span class="meta">@bedezign</span><span class="regexp">/yii2/</span>audit/migrations</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：</strong>导入前common/main-local里的数据库必须有一个名称为db的数据库配置。否则会报错。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'db'</span> =&gt; [</span><br><span class="line">  <span class="string">'class'</span> =&gt; <span class="string">'yii\db\Connection'</span>,</span><br><span class="line">  <span class="string">'dsn'</span> =&gt; <span class="string">'mysql:host=localhost;port=3306;dbname=yii2-audit'</span>,</span><br><span class="line">  <span class="string">'username'</span> =&gt; <span class="string">'root'</span>,</span><br><span class="line">  <span class="string">'password'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">  <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>1.3 最简配置<br>编辑config/main.php,在modules下加入：audit。更加完整的配置请查看<a href="https://bedezign.github.io/yii2-audit/docs/module-configuration/" target="_blank" rel="noopener">链接 https://bedezign.github.io/yii2-audit/docs/module-configuration/</a><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$config = [</span><br><span class="line">    <span class="string">'modules'</span> =&gt; [</span><br><span class="line">        <span class="string">'audit'</span> =&gt; <span class="string">'bedezign\yii2\audit\Audit'</span>,</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后访问yourdomain.com/index.php?r=audit 即可查看访问详细情况。如图：<br><a href="https://i.loli.net/2018/01/02/5a4b4145d6eff.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b4145d6eff.png" alt="entries.png"></a></p>
+<hr>
+<h2 id="2-Audit功能使用介绍"><a href="#2-Audit功能使用介绍" class="headerlink" title="2.Audit功能使用介绍"></a><strong>2.Audit功能使用介绍</strong></h2><p>按照<strong>1.安装</strong>里面介绍的步骤，可能会出现没有权限访问的情况，那么接下来介绍如何配置该插件并详细介绍其功能。</p>
+<h3 id="2-1-【Entries】记录Web、Cli请求"><a href="#2-1-【Entries】记录Web、Cli请求" class="headerlink" title="2.1 【Entries】记录Web、Cli请求"></a><strong><span id="2.1">2.1 【Entries】记录Web、Cli请求</span></strong></h3><ul>
+<li>记录字段如下:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>记录字段名称</th>
+<th>解释</th>
+<th>其它说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td>默认记录操作用户ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>记录操作者IP</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Request Method</td>
+<td>请求方法</td>
+<td>例如GET、POST、HEAD、PUT等</td>
+</tr>
+<tr>
+<td>Ajax</td>
+<td>是否是异步请求</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>请求的路由地址</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>请求响应时长</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>内存占用</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>请求时间</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>配置 <strong> <font color="red">本功能是插件的核心功能，因此若要使用其它功能，必须先把这里配置好。</font></strong></li>
+</ul>
+<p>完整配置请查看：<a href="https://bedezign.github.io/yii2-audit/docs/module-configuration/" target="_blank" rel="noopener">https://bedezign.github.io/yii2-audit/docs/module-configuration/</a></p>
+<p><strong>以下内容均为config/main.php配置文件的内容。</strong><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'modules'</span> =&gt; [</span><br><span class="line">      <span class="string">'audit'</span> =&gt; [</span><br><span class="line">            <span class="string">'class'</span> =&gt; <span class="string">'bedezign\yii2\audit\Audit'</span>,</span><br><span class="line">            <span class="comment">//在此加入下文介绍的配置</span></span><br><span class="line">      ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><strong>db</strong> 指定数据库连接<br>在使用了多数据库后，可以通过以下配置来指定一个数据库链接。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'db'</span> =&gt; <span class="string">'myAuditDatabase'</span>,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>trackActions</strong> 要监听的action</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'trackActions'</span> =&gt; [<span class="string">'*'</span>], <span class="comment">//监听全部action</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ignoreActions</strong> 要屏蔽的action，设置后将不在日志里记录这些action</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'ignoreActions'</span> =&gt; [<span class="string">'audit/*'</span>, <span class="string">'debug/*'</span>], <span class="comment">//设置不记录audit组件内的所有操作和debug路由下的所有操作</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>accessIps</strong> 允许访问audit组件的IP列表</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'accessIps'</span> =&gt; [<span class="string">'127.0.0.1'</span>, <span class="string">'192.168.*'</span>], <span class="comment">//允许本地IP和192.168.IP段下的IP访问。如果为null则允许任何人访问</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>accessRoles</strong> 允许访问的角色列表</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'accessRoles'</span> =&gt; [<span class="string">'admin'</span>], <span class="comment">//设置角色为admin的角色可以访问audit组件。如果为null则允许任何人访问</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>accessUsers</strong> 允许访问的User ID列表。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'accessUsers'</span> =&gt; [<span class="number">1</span>,<span class="number">2</span>],  <span class="comment">//设置ID为1或2的用户可以访问audit组件，如果为null则允许任何人访问</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>maxAge</strong> 日志生命周期 单位：天</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'maxAge'</span> =&gt; <span class="string">'debug'</span>, <span class="comment">//永不删除</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>compressData</strong> 压缩数据。</p>
+</li>
+<li><p><strong>panels</strong> 日志数据面板</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'panels'</span> =&gt; [</span><br><span class="line">  <span class="string">'audit/request'</span>, <span class="comment">//显示请求内容面板</span></span><br><span class="line">  <span class="string">'audit/error'</span>, <span class="comment">//显示错误信息面板</span></span><br><span class="line">  <span class="string">'audit/trail'</span>, <span class="comment">//显示数据库信息面板</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>支持的面板列表如下：</p>
+<ul>
+<li>RequestPanel    //跟踪所有传入web和控制台的请求数据。</li>
+<li>AssetPanel    //显示载入的前端资源</li>
+<li>ConfigPanel    //Yii 和PHP配置</li>
+<li>DbPanel     //数据库查询信息</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/error-panel/" target="_blank" rel="noopener">ErrorPanel</a>    //记录PHP异常、错误。</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/javascript-panel/" target="_blank" rel="noopener">JavascriptPanel</a>    //自动记录JavaScript错误信息</li>
+<li>LogPanel    //Yii日志</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/mail-panel/" target="_blank" rel="noopener">MailPanel</a>    //邮件记录 <strong>这里必须开启PHP的PHPmail扩展，不然报错</strong></li>
+<li>ProfilingPanel    //应用程序配置信息</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/trail-panel/" target="_blank" rel="noopener">TrailPanel</a>    //数据库变更记录</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/extra-data-panel/" target="_blank" rel="noopener">ExtraDataPanel</a>    //额外定义的数据</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/curl-panel/" target="_blank" rel="noopener">CurlPanel</a>    //记录应用的cURL请求。（包含响应，日志，和请求头）</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/soap-panel/" target="_blank" rel="noopener">SOAPPanel</a> //记录应用的SOAP请求</li>
+<li><a href="https://bedezign.github.io/yii2-audit/docs/custom-views-panel/" target="_blank" rel="noopener">YourOwnPanel</a> //自定义Panel</li>
+</ul>
+<ul>
+<li>通过路由 yourdomain.com/audit/entry/index 查看Web、Cli请求记录。</li>
+</ul>
+<p>在记录以上字段的同时，如果配置了【Trails】【Mails】【Javascripts】【Errors】，则会显示对应的，通过该请求造成的【Trails】记录ID，【Mails】记录ID，【Javascripts】记录ID和【Errors】记录ID。<br>如图：<br><a href="https://i.loli.net/2018/01/03/5a4c73a46f1a7.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/03/5a4c73a46f1a7.jpg" alt="POST记录.jpg"></a><br>在POST hly-base-info/create 的同时，影响了数据库，并且在HlyBaseInfomodel里配置了AuditTrailBehavior，因此会记录数据库变更。<strong><a href="#2.2">数据库变更记录配置详见2.2</a></strong></p>
+<blockquote>
+<p>这里的Trails ID只是本次请求，导致的所有数据库变更中的最后一个，并不是完整的ID数组，完整的数据库变更还是要在Trails里查看。如图</p>
+<blockquote>
+<p><a href="https://i.loli.net/2018/01/03/5a4c76ebd3220.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/03/5a4c76ebd3220.png" alt="trails ALL.png"></a><br>在此就可以看到数据库完整的变化，这里的Entry ID指向了对应的操作日志。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>查看请求详细记录</li>
+</ul>
+<p>通过上面的列表，点击最左侧图标进入详细查看。里面提供了类似Yii2 Debug的功能。在显示请求详细的同时，也会附带几个面板[可通过配置决定显示哪些panel。如图：</p>
+<p><a href="https://i.loli.net/2018/01/03/5a4c86b130a01.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/03/5a4c86b130a01.jpg" alt="panel.jpg"></a></p>
+<h3 id="2-2【Trails】记录数据库变更"><a href="#2-2【Trails】记录数据库变更" class="headerlink" title="2.2【Trails】记录数据库变更"></a><strong><span id="2.2">2.2【Trails】记录数据库变更</span></strong></h3><ul>
+<li>记录字段</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>记录字段名称</th>
+<th>解释</th>
+<th>其它说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entry ID</td>
+<td>操作记录ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>User ID</td>
+<td>操作者ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>动作</td>
+<td>Create、Update、Delete 等</td>
+</tr>
+<tr>
+<td>type</td>
+<td>model路径</td>
+<td>eg.backend\models\HlyBaseInfo</td>
+</tr>
+<tr>
+<td>model ID</td>
+<td>model ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>受影响的字段</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Diff</td>
+<td>改变前后对比</td>
+<td>这里会列举该记录被操作前的数据和被改变后的数据。如下图：</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://i.loli.net/2018/01/03/5a4c7cd2ee012.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/03/5a4c7cd2ee012.jpg" alt="updateLog.jpg"></a></p>
+<ul>
+<li>配置</li>
+</ul>
+<p>记录数据库变更也很方便，只需要在需要记录的model的behaviors函数内加入AuditTrailBehavior：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> [</span><br><span class="line">			<span class="string">'bedezign\yii2\audit\AuditTrailBehavior'</span></span><br><span class="line">		];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>比如记录Post表的变更记录。[会记录增/删/改操作]<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> <span class="title">\yii\db\ActiveRecord</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  public function behaviors()</span><br><span class="line">  &#123;</span><br><span class="line">    [</span><br><span class="line">    	<span class="symbol">'clas</span>s'=&gt; <span class="symbol">'bedezign</span>\yii2\audit\<span class="type">AuditTrailBehavior</span>'</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如图：<br><a href="https://i.loli.net/2018/01/02/5a4b4a24f0df0.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b4a24f0df0.png" alt="trails.png"></a></p>
+<h3 id="2-3-记录JavaScript错误记录"><a href="#2-3-记录JavaScript错误记录" class="headerlink" title="2.3 记录JavaScript错误记录"></a><strong><span id="2.3">2.3 记录JavaScript错误记录</span></strong></h3><ul>
+<li>记录字段</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>记录字段名称</th>
+<th>解释</th>
+<th>其它说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entry ID</td>
+<td>操作记录ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>错误类型</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>错误来源</td>
+<td>例如 localhost/:31:5 //代表HTML源代码第31行有JavaScript错误</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>错误信息</td>
+<td>例如 Uncaught ReferenceError: alert1 is not defined</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>配置</li>
+</ul>
+<p>记录JavaScript错误记录只需要在view视图里使用audit提供的JSLoggingAsset注册当前资源。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="symbol">\b</span>edezign<span class="symbol">\y</span>ii2<span class="symbol">\a</span>udit<span class="symbol">\w</span>eb<span class="symbol">\J</span>SLoggingAsset::register(<span class="keyword">$this);</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-记录Yii2错误记录"><a href="#2-4-记录Yii2错误记录" class="headerlink" title="2.4 记录Yii2错误记录"></a><strong><span id="2.4">2.4 记录Yii2错误记录</span></strong></h3><ul>
+<li>记录字段</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>记录字段名称</th>
+<th>解释</th>
+<th>其它说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entry ID</td>
+<td>操作记录ID</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>错误信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ErrorCode</td>
+<td>错误码</td>
+<td>-</td>
+</tr>
+<tr>
+<td>File</td>
+<td>文件路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Line</td>
+<td>导致错误的行号</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>错误哈希值</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>创建时间</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>如图：<br><a href="https://i.loli.net/2018/01/03/5a4c8447d5631.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/03/5a4c8447d5631.jpg" alt="Errors.jpg"></a></p>
+<ul>
+<li>配置 </li>
+</ul>
+<p>记录错误需要在配置文件config/main里配置,<strong>注意</strong>console的errorHandler需要设置成注释中的配置。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$config = [</span></span><br><span class="line"><span class="php">  <span class="string">'components'</span> =&gt; [</span></span><br><span class="line"><span class="php">  		<span class="string">'errorHandler'</span> =&gt; [</span></span><br><span class="line"><span class="php">  		<span class="comment">// web error handler</span></span></span><br><span class="line"><span class="php">  			<span class="string">'class'</span> =&gt; <span class="string">'\bedezign\yii2\audit\components\web\ErrorHandler'</span>,</span></span><br><span class="line"><span class="php">  			<span class="comment">// console error handler</span></span></span><br><span class="line"><span class="php">  			<span class="comment">//'class' =&gt; '\bedezign\yii2\audit\components\console\ErrorHandler',</span></span></span><br><span class="line"><span class="php">  		],</span></span><br><span class="line"><span class="php">  ],</span></span><br><span class="line"><span class="php">];</span></span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/01/03/awesomePHP.html" class="pre-post btn btn-default"><i class="fa fa-angle-left fa-fw"></i>上一篇</a>
+    
+    
+        <a href="/2018/01/02/Yii2-DatePicker小部件的使用.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>重头再来，新的起点！ <br/>
+Hello World! <br/>
+<hr/>本站使用主题 <a href="https://github.com/shenliyang/hexo-theme-snippet/">snippet</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/nash-x9" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:x9_sec@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://wpa.qq.com/msgrd?v=3&uin=1649880988&site=qq&menu=yes" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="http://t.qq.com/txzcmt" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/php/"><i class="fa" aria-hidden="true">PHP</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/"><i class="fa" aria-hidden="true">其它</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/backend/Yii2/"><i class="fa" aria-hidden="true">Yii2</i></a><span class="category-list-count">2</span></li></ul></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/"><i class="fa" aria-hidden="true">一月 2018</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
+        
+		<hr />
+			<a href="https://coding.net/pages/">
+				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
+			</a>
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

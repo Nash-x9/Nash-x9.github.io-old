@@ -1,0 +1,549 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://war9.cn">
+    <!--SEO-->
+
+<meta name="description" content="小九博客致力于分享程序员路上遇到的各种坑"/>
+
+
+<meta name="keywords" content="小九博客,PHP,程序员,yii2,教程"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Yii2 DatePicker小部件的使用 | 小九博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/xcode.min.css?rev=9.12.0">
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1271783103&web_id=1271783103" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Hello World </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw fa-home"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/php/"><i class="fa fa-fw "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/backend/"><i class="fa fa-fw "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/frontend/"><i class="fa fa-fw "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/other/"><i class="fa fa-fw "></i>其它</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/myspace/"><i class="fa fa-fw "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/about/"><i class="fa fa-fw "></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Yii2 DatePicker小部件的使用">
+            
+            Yii2 DatePicker小部件的使用
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Yii2</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            Yii2
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/02</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><strong>DatePicker </strong>小部件是一个封装了Bootstrap DatePicker插件到Yii2中的一个插件。<br>可以方便的由用户选择日期，以用于快速输入日期数据。该插件是基于Yii2 BootStrap3制作的。<br>如果浏览器不支持Jquery。该组件仍然支持以下四种类型：</p>
+<ul>
+<li>Simple Input Markup    //常用的简单input输入框类型</li>
+<li>Component Markup - Addon Prepended //在input前加入 选择日期&amp;清空栏目 按钮</li>
+<li>Component Markup - Addon Appended //在input后加入 选择日期&amp;清空栏目 按钮</li>
+<li>Inline / Embedded Markup //嵌入式日期选择框</li>
+<li>Date Range Markup (from and to dates)  //日期范围,从A日期~B日期。</li>
+</ul>
+<p><strong>项目地址:</strong> <a href="https://github.com/kartik-v/yii2-widget-datepicker" target="_blank" rel="noopener">https://github.com/kartik-v/yii2-widget-datepicker</a><br>文档中未尽事宜查看<strong>插件手册：</strong><a href="http://demos.krajee.com/widget-details/datepicker" target="_blank" rel="noopener">http://demos.krajee.com/widget-details/datepicker</a></p>
+<ol>
+<li>安装</li>
+</ol>
+<p>通过composer进行安装.</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer <span class="keyword">require</span> kartik-v/yii2-widget-datepicker <span class="string">"@dev"</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>部分参数解释</li>
+</ol>
+<ul>
+<li><p><strong>languge</strong>：组件显示语言， 缺省设置为：Yii::$app-&gt;language 。<br>eg:en , zh-CN<br><a href="https://i.loli.net/2018/01/02/5a4b1eed12139.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1eed12139.jpg" alt="language1.jpg"></a></p>
+</li>
+<li><p><strong>size</strong>:  组件大小 参数范围：[lg, md, sm, xs]</p>
+</li>
+<li><p><strong>name</strong>: 输入框input的name属性 如果DatePicker是TYPE_RANGE类型<strong>必须</strong>设置name2</p>
+</li>
+<li><p><strong>attribute</strong>：设置model的属性。如果DatePicker是TYPE_RANGE类型<strong>必须</strong>设置attribute2</p>
+</li>
+<li><p><strong>value</strong>：设置input的value属性。如果DatePicker是TYPE_RANGE类型<strong>可以</strong>设置value2</p>
+</li>
+<li><p><strong>options</strong>: 设置input的其它配置，比如placeholder等。。如果DatePicker是TYPE_RANGE类型<strong>可以</strong>设置options2.</p>
+</li>
+<li><p><strong>separator</strong>: 分隔符。一般用于TYPE_RANGE类型的输入框。将在两个input中间显示一个分隔符。默认为“to”。</p>
+</li>
+<li><p><strong>pluginEvents</strong>：插件事件数组。插件可以绑定以下几个事件<br>[<br>show,<br>hide,<br>clearDate,<br>changeDate,<br>changeMonth,<br>changeYear,<br>changeDecade,<br>changeCentury<br>]<br>绑定事件到自定义函数可以进行如下配置：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pluginEvents = [</span><br><span class="line">    "<span class="keyword">show</span><span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">    "</span>hide<span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">    "</span>clearDate<span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">    "</span>changeDate<span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">    "</span>changeYear<span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">    "</span>changeMonth<span class="string">" =&gt; "</span><span class="keyword">function</span>(e) &#123;  # <span class="string">`e`</span> here contains the extra <span class="keyword">attributes</span> &#125;<span class="string">",</span></span><br><span class="line"><span class="string">];</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>readonly</strong>:设置input是否只读</p>
+</li>
+<li><p><strong>pluginOptions</strong>：插件配置数组，常用配置如下：<br><strong>完整的配置文档请查看：</strong><a href="http://bootstrap-datepicker.readthedocs.io/en/latest/options.html" target="_blank" rel="noopener">http://bootstrap-datepicker.readthedocs.io/en/latest/options.html</a></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>配置名称</th>
+<th>类型</th>
+<th>其它说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoclose</td>
+<td>Boolean</td>
+<td>默认False，是否自动关闭日期选择框。</td>
+</tr>
+<tr>
+<td>clearBtn</td>
+<td>Boolean</td>
+<td>默认False，是否在日期选择框下方显示清空按钮。</td>
+</tr>
+<tr>
+<td>container</td>
+<td>String</td>
+<td>默认Body，附加到某个元素上以用于弹出DatePicker。会设置该元素ID为‘#picker-container‘</td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>Date或String</td>
+<td>设置该日期，那么该日期之前的日期将不可选择。</td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>Date或String</td>
+<td>设置该日期，那么该日期之后的日期将不可选择。</td>
+</tr>
+<tr>
+<td>format</td>
+<td>String</td>
+<td>默认“mm/dd/yyyy”。设置日期格式</td>
+</tr>
+<tr>
+<td>multidate</td>
+<td>Boolean或Number</td>
+<td>默认False，如果设置为true将允许多选日期。如果特定某个数，将允许选择特定数个日期。</td>
+</tr>
+<tr>
+<td>todayBtn</td>
+<td>Boolean</td>
+<td>默认False，是否在日期选择框下方显示今日按钮。点击将输入今日日期。</td>
+</tr>
+<tr>
+<td>todayHighlight</td>
+<td>Boolean</td>
+<td>默认False，是否高亮显示今日日期。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>type</strong>: 组件类型，缺省设置为 TYPE_COMPONENT_PREPEND 或2.<br>参数范围：[<br>TYPE_INPUT,  //普通input输入框<br>TYPE_COMPONENT_PREPEND,<br>TYPE_COMPONENT_APPEND,<br>TYPE_INLINE,<br>TYPE_RANGE,<br>TYPE_BUTTON<br>] 以上分别对应 1 ~ 6，使用常量需要DatePicker::常量名称,<br>例如：DatePicker::TYPE_COMPONENT_PREPEND,<br><strong>注意：官方文档中TYPE_INLINE和TYPE_RANGE的常量值不正确，两个常量顺序写错了。<br>正确的TYPE_INLINE = 4,TYPE_RANGE = 5.</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>是否支持手动输入</th>
+<th>功能介绍</th>
+<th>其它</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TYPE_INPUT</td>
+<td>支持</td>
+<td>普通输入框,点击输入框，弹出日期选择 <a href="https://i.loli.net/2018/01/02/5a4b1eed137f8.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1eed137f8.jpg" alt="样式1.jpg"></a></td>
+<td>–</td>
+</tr>
+<tr>
+<td>TYPE_COMPONENT_PREPEND</td>
+<td>支持</td>
+<td>在输入框前加入两个按钮，分别是弹出日期选择和清空输入。<a href="https://i.loli.net/2018/01/02/5a4b1eed1f0a8.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1eed1f0a8.jpg" alt="样式2.jpg"></a></td>
+<td>–</td>
+</tr>
+<tr>
+<td>TYPE_COMPONENT_APPEND</td>
+<td>支持</td>
+<td>在输入框后加入两个按钮，分别是弹出日期选择和清空输入。 <a href="https://i.loli.net/2018/01/02/5a4b1eed1dcc5.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1eed1dcc5.jpg" alt="样式3.jpg"></a></td>
+<td>–</td>
+</tr>
+<tr>
+<td>TYPE_RANGE</td>
+<td>支持</td>
+<td>日期范围专用，需要配置第二个输入框。两个输入框A和B，如果A日期大于B日期会自动将B日期同步为A日期。<a href="https://i.loli.net/2018/01/02/5a4b1eed205a4.jpg" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1eed205a4.jpg" alt="样式5.jpg"></a></td>
+<td>必须配置name2或attribute2 参数，否则会报错。<strong>使用该选项需要先安装RANGE扩展。</strong>安装方法：composer require kartik-v/yii2-field-range “*”</td>
+</tr>
+<tr>
+<td>TYPE_INLINE</td>
+<td>不支持</td>
+<td>将总是显示一个嵌入式的日期选择框。输入框将被加上只读属性。<a href="https://i.loli.net/2018/01/02/5a4b1d0644fd7.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1d0644fd7.png" alt="样式4.png"></a></td>
+<td>如果要允许输入日期，可以通过inlineOptions设置</td>
+</tr>
+<tr>
+<td>TYPE_BUTTON</td>
+<td>不支持</td>
+<td>仅显示一个按钮，点击弹出日期选择框，值将被赋值到一个隐藏的输入框内。<a href="https://i.loli.net/2018/01/02/5a4b1f695e4b1.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1f695e4b1.png" alt="样式6.png"></a></td>
+<td>可以通过buttonOptions进行配置。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>快速使用<br>使用的时候记的在头部引用组件。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">kartik</span>\<span class="title">date</span>\<span class="title">DatePicker</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>不使用model的形式<br>不使用ActiveForm和后台传来的model也可以直接在页面里输出该组件，代码如下<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> DatePicker::widget([</span><br><span class="line">    <span class="string">'name'</span> =&gt; <span class="string">'check_issue_date'</span>,</span><br><span class="line">    <span class="string">'value'</span> =&gt; date(<span class="string">'Y-m-d'</span>, strtotime(<span class="string">'+2 days'</span>)),</span><br><span class="line">    <span class="string">'options'</span> =&gt; [<span class="string">'placeholder'</span> =&gt; <span class="string">'请选择日期 ...'</span>],</span><br><span class="line">    <span class="string">'pluginOptions'</span> =&gt; [</span><br><span class="line">        <span class="string">'format'</span> =&gt; <span class="string">'yyyy-mm-dd'</span>,</span><br><span class="line">        <span class="string">'todayHighlight'</span> =&gt; <span class="keyword">true</span></span><br><span class="line">    ]</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>显示效果如图：<br><a href="https://i.loli.net/2018/01/02/5a4b1d4840afd.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1d4840afd.png" alt="不使用model.png"></a></p>
+<ul>
+<li>使用model+ActiveForm的形式<br>在controller里面将model传递给视图。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   $model = <span class="keyword">new</span> ServiceHistory();</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'create'</span>, [</span><br><span class="line">       <span class="string">'model'</span> =&gt; $model,</span><br><span class="line">   ]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在视图中，先创建ActiveForm，再输出DatePicker代码片段如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $form = ActiveForm::begin([]); <span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> DatePicker::widget([</span><br><span class="line">            <span class="string">'model'</span> =&gt; $model,<span class="comment">//绑定后台传递的model</span></span><br><span class="line">            <span class="string">'attribute'</span> =&gt; <span class="string">'service_start'</span>,<span class="comment">//model里的字段</span></span><br><span class="line">            <span class="string">'attribute2'</span> =&gt; <span class="string">'service_end'</span>,<span class="comment">//model里的字段</span></span><br><span class="line">            <span class="string">'options'</span> =&gt; [<span class="string">'placeholder'</span> =&gt; <span class="string">'服务开始时间'</span>],<span class="comment">//设置input1的提示</span></span><br><span class="line">            <span class="string">'options2'</span> =&gt; [<span class="string">'placeholder'</span> =&gt; <span class="string">'服务结束时间'</span>],<span class="comment">//设置input2的提示</span></span><br><span class="line">            <span class="string">'type'</span> =&gt; DatePicker::TYPE_RANGE,<span class="comment">//设置插件类型为日期区间类型。</span></span><br><span class="line">            <span class="string">'form'</span> =&gt; $form,<span class="comment">//绑定form为activeForm。</span></span><br><span class="line">            <span class="string">'separator'</span> =&gt; <span class="string">'&lt;i class="glyphicon glyphicon-resize-horizontal"&gt;&lt;/i&gt;'</span>,<span class="comment">//设置分隔符</span></span><br><span class="line">            <span class="string">'pluginOptions'</span> =&gt; [<span class="comment">//设置插件配置</span></span><br><span class="line">                <span class="string">'format'</span> =&gt; <span class="string">'yyyy-mm-dd'</span>,<span class="comment">//设置日期格式</span></span><br><span class="line">                <span class="string">'autoclose'</span> =&gt; <span class="keyword">true</span>,<span class="comment">//设置日期选择框自动关闭</span></span><br><span class="line">                <span class="string">'todayHighlight'</span> =&gt; <span class="keyword">true</span>,<span class="comment">//设置今日日期高亮</span></span><br><span class="line">                <span class="string">'todayBtn'</span> =&gt; <span class="keyword">true</span>,<span class="comment">//设置在日期选择框下方显示今日按钮。</span></span><br><span class="line">            ],</span><br><span class="line">        ]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>以上代码效果如图：<br><a href="https://i.loli.net/2018/01/02/5a4b1df3e67f0.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/01/02/5a4b1df3e67f0.png" alt="使用model.png"></a></p>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/01/02/yii2-audit插件的使用.html" class="pre-post btn btn-default"><i class="fa fa-angle-left fa-fw"></i>上一篇</a>
+    
+    
+        <a href="/2017/12/28/第一篇Hexo文章.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>重头再来，新的起点！ <br/>
+Hello World! <br/>
+<hr/>本站使用主题 <a href="https://github.com/shenliyang/hexo-theme-snippet/">snippet</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/nash-x9" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:x9_sec@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://wpa.qq.com/msgrd?v=3&uin=1649880988&site=qq&menu=yes" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="http://t.qq.com/txzcmt" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/php/"><i class="fa" aria-hidden="true">PHP</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/"><i class="fa" aria-hidden="true">其它</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/backend/Yii2/"><i class="fa" aria-hidden="true">Yii2</i></a><span class="category-list-count">2</span></li></ul></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/"><i class="fa" aria-hidden="true">一月 2018</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
+        
+		<hr />
+			<a href="https://coding.net/pages/">
+				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
+			</a>
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
