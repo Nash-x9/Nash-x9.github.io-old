@@ -11,7 +11,16 @@
     <p><span>4</span><span>0</span><span>4</span></p>
     <p>该页面不存在(´･ω･`)</p>
 	<br/>
-	<p><span>5秒后将返回首页..</span></p>
+	<p><span id='second'>5</span><span>秒后将返回首页..</span></p>
   </div>
 </body>
 </html>
+<script>
+	var t=4;//设定跳转的时间
+	setInterval("refer()",1000); //启动1秒定时 
+	var second = document.getElementById('second');
+	function refer(){
+		second.innerHTML = t;
+		t--;
+	}
+</script>
