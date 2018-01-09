@@ -1,0 +1,623 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://war9.cn">
+    <!--SEO-->
+
+<meta name="description" content="小九博客致力于分享程序员路上遇到的各种坑"/>
+
+
+<meta name="keywords" content="小九博客,PHP,程序员,yii2,教程"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Yii2 Event事件-初识 | 小九博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1271783103&web_id=1271783103" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+    <meta name="baidu-site-verification" content="c2Fj3b4epVcUxJgt" />
+    <script>
+        //push
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Hello World </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw fa-home"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/php/"><i class="fa fa-fw "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/backend/"><i class="fa fa-fw "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/frontend/"><i class="fa fa-fw "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/other/"><i class="fa fa-fw "></i>其它</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/myspace/"><i class="fa fa-fw "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/about/"><i class="fa fa-fw "></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Yii2 Event事件-初识">
+            
+            Yii2 Event事件-初识
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Yii2</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            yii2
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/09</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 align="center"> yii2-事件 系列 第一篇</h1>
+
+<blockquote>
+<p>博主使用yii2时间不长,用于备忘分享，若有不正之处欢迎指正。十分感谢。<br><strong>本文仅用于快速使用yii2事件</strong>。后续文章将详细介绍yii2事件的更多细节。</p>
+</blockquote>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在使用框架做项目中，多次使用到了Behavior。<br>但是在使用的时候，切记不要盲目使用behavior，而是要区分场景。明白了场景到底需要什么的时候，再去选择使用事件(event)，还是行为(behavior)。</p>
+<blockquote>
+<p>使用事件，可以在特定的时点，触发执行预先设定的一段代码，事件既是代码解耦的一种方式，也是设计业务流程的一种模式。现代软件中，事件无处不在，比如，你发了个微博，触发了一个事件，导致关注你的人，看到了你新发出来的内容。对于事件而言，有这么几个要素 <a href="#ref-1"><strong>[1]</strong></a>：</p>
+</blockquote>
+<h2 id="yii2事件方法"><a href="#yii2事件方法" class="headerlink" title="yii2事件方法"></a>yii2事件方法</h2><p>Event文件( \yii\base\Event )函数模型：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> <span class="keyword">extends</span> <span class="title">Object</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $name;               <span class="comment">// 事件名</span></span><br><span class="line">    <span class="keyword">public</span> $sender;             <span class="comment">// 事件发布者，通常是调用了 trigger() 的对象或类。</span></span><br><span class="line">    <span class="keyword">public</span> $handled = <span class="keyword">false</span>;    <span class="comment">// 是否终止事件的后续处理</span></span><br><span class="line">    <span class="keyword">public</span> $data;               <span class="comment">// 事件相关数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_events = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">on</span><span class="params">($class, $name, $handler, $data = null,</span></span></span><br><span class="line"><span class="function"><span class="params">        $append = true)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// ... ...</span></span><br><span class="line">        <span class="comment">// 用于绑定事件handler</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">off</span><span class="params">($class, $name, $handler = null)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// ... ...</span></span><br><span class="line">        <span class="comment">// 用于取消事件handler绑定</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">hasHandlers</span><span class="params">($class, $name)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// ... ...</span></span><br><span class="line">        <span class="comment">// 用于判断是否有相应的handler与事件对应</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">($class, $name, $event = null)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// ... ...</span></span><br><span class="line">        <span class="comment">// 用于触发事件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>on =&gt;绑定事件handler</p>
+<p>一个最简单的绑定:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">\yii\base\Event::on(</span><br><span class="line">  BaseActiveRecord::className(),<span class="comment">//需要绑定的类名</span></span><br><span class="line">  BaseActiveRecord::EVENT_BEFORE_INSERT,<span class="comment">//绑定插入前事件</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="params">($event)</span></span>&#123;<span class="comment">//事件handler。这里的$event即是上面类中的Event。</span></span><br><span class="line">      <span class="keyword">echo</span> <span class="string">'I will insert a record into database'</span>;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>以上例子表示将AR<strong>数据库插入之前事件</strong>，与自定义handler函数绑定。</p>
+</li>
+<li><p>off =&gt;解绑事件handler</p>
+<p>一个最简单的解除绑定：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">\yii\base\Event::off(</span><br><span class="line">  BaseActiveRecord::className(),<span class="comment">//要接触绑定的类名</span></span><br><span class="line">  BaseActiveRecord::EVENT_AFTER_DELETE,<span class="comment">//解除绑定的事件</span></span><br><span class="line">  <span class="comment">//如果不写第三个参数，默认为null，将移除事件所有的handler。</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>以上例子表示移除AR<strong>数据被删除后事件</strong>绑定的所有的handler.该函数将返回<strong>True</strong>或<strong>False</strong>表示是否找到并移除了该handler。</p>
+</li>
+<li><p>hasHandlers =&gt;判断这个类以及其父类的指定事件是否具有handler。</p>
+<p>一个最简单的判断：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">\yii\base\Event::hasHandlers(</span><br><span class="line">  BaseActiveRecord::className(),<span class="comment">//要判断的类</span></span><br><span class="line">  BaseActiveRecord::EVENT_BEFORE_UPDATE<span class="comment">//要判断的事件名称</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>以上例子表示 判断AR类<strong>数据库记录变更</strong>行为下有没有handler。<br><strong> 注：仔细阅读了源码后，发现该函数不仅会检查指定的这个类，也会检查其所有的父类。</strong></p>
+</li>
+<li><p>offAll =&gt;解除所有类级别的事件处理程序。</p>
+<p>一个最简单的解除所有绑定：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">\yii\base\Event::offAll();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Yii2-内置事件"><a href="#Yii2-内置事件" class="headerlink" title="Yii2 内置事件"></a>Yii2 内置事件</h2><p> 在上面我们明白了如何绑定解绑事件，Yii2也很贴心的给我们提供了许多内置的事件，在这里列举一下，以用于快速查询。Tips:此内容可以在Yii2速查表里找到。</p>
+<p><strong>Application # 应用主体</strong></p>
+<ul>
+<li>应用处理请求before之前触发 <ul>
+<li>Application::EVENT_BEFORE_REQUEST</li>
+</ul>
+</li>
+<li>应用处理请求before之后触发 <ul>
+<li>Application::EVENT_AFTER_REQUEST</li>
+</ul>
+</li>
+</ul>
+<p><strong>Controller # 控制器</strong></p>
+<ul>
+<li>在每个Action运行之前触发 <ul>
+<li>Controller::EVENT_BEFORE_ACTION</li>
+</ul>
+</li>
+<li>在每个Action运行之后触发 <ul>
+<li>Controller::EVENT_AFTER_ACTION</li>
+</ul>
+</li>
+</ul>
+<p><strong>Model # 模型</strong></p>
+<ul>
+<li>在验证Model属性之前触发 <ul>
+<li>Model::EVENT_BEFORE_VALIDATE</li>
+</ul>
+</li>
+<li>在验证Model属性之后触发 <ul>
+<li>Model::EVENT_AFTER_VALIDATE</li>
+</ul>
+</li>
+</ul>
+<p><strong>Module # 模块</strong></p>
+<ul>
+<li>一个模块的Action运行前触发 <ul>
+<li>Module::EVENT_BEFORE_ACTION</li>
+</ul>
+</li>
+<li>一个模块的Action运行后触发 <ul>
+<li>Module::EVENT_AFTER_ACTION</li>
+</ul>
+</li>
+</ul>
+<p><strong>View # 视图</strong></p>
+<ul>
+<li>执行视图的beforePage时触发 <ul>
+<li>View::EVENT_BEGIN_PAGE</li>
+</ul>
+</li>
+<li>执行视图的endPage函数时触发 <ul>
+<li>View::EVENT_END_PAGE</li>
+</ul>
+</li>
+<li>在renderFile渲染一个视图文件之前触发 <ul>
+<li>View::EVENT_BEFORE_RENDER</li>
+</ul>
+</li>
+<li>在renderFile渲染一个视图文件之后触发 <ul>
+<li>View::EVENT_AFTER_RENDER</li>
+</ul>
+</li>
+<li>执行视图的beginBody函数时触发 <ul>
+<li>View::EVENT_BEGIN_BODY</li>
+</ul>
+</li>
+<li>执行视图的endBody函数时触发 <ul>
+<li>View::EVENT_END_BODY</li>
+</ul>
+</li>
+</ul>
+<p><strong>Widget # 挂件</strong></p>
+<ul>
+<li>Widget初始化时触发 <ul>
+<li>Widget::EVENT_INIT</li>
+</ul>
+</li>
+<li>Widget执行前触发 <ul>
+<li>Widget::EVENT_BEFORE_RUN</li>
+</ul>
+</li>
+<li>Widget执行之后触发 <ul>
+<li>Widget::EVENT_AFTER_RUN</li>
+</ul>
+</li>
+</ul>
+<p><strong>ActiveQuery</strong></p>
+<ul>
+<li>由ActiveQuery的init函数触发 <ul>
+<li>ActiveQuery::EVENT_INIT</li>
+</ul>
+</li>
+</ul>
+<p><strong>BaseActiveRecord &amp; ActiveRecord # 这也许是内置事件中最重要的一批了。</strong></p>
+<ul>
+<li>AR对象被初始化init时触发 <ul>
+<li>BaseActiveRecord::EVENT_INIT</li>
+</ul>
+</li>
+<li>AR执行查询结束时触发 <ul>
+<li>BaseActiveRecord::EVENT_AFTER_FIND</li>
+</ul>
+</li>
+<li>插入结束时触发 <ul>
+<li>BaseActiveRecord::EVENT_BEFORE_INSERT</li>
+</ul>
+</li>
+<li>插入之后触发 <ul>
+<li>BaseActiveRecord::EVENT_AFTER_INSERT</li>
+</ul>
+</li>
+<li>更新记录之前触发 <ul>
+<li>BaseActiveRecord::EVENT_BEFORE_UPDATE</li>
+</ul>
+</li>
+<li>更新记录之后触发 <ul>
+<li>BaseActiveRecord::EVENT_AFTER_UPDATE</li>
+</ul>
+</li>
+<li>删除记录之前触发 <ul>
+<li>BaseActiveRecord::EVENT_BEFORE_DELETE</li>
+</ul>
+</li>
+<li>删除记录之后触发 <ul>
+<li>BaseActiveRecord::EVENT_AFTER_DELETE</li>
+</ul>
+</li>
+<li>在数据refresh成功之后触发 <ul>
+<li>BaseActiveRecord::EVENT_AFTER_REFRESH</li>
+</ul>
+</li>
+</ul>
+<p><strong>Connection # 数据库连接</strong></p>
+<ul>
+<li>数据库连接被打开后触发 <ul>
+<li>Connection::EVENT_AFTER_OPEN</li>
+</ul>
+</li>
+<li>事务被启动时触发 <ul>
+<li>Connection::EVENT_BEGIN_TRANSACTION</li>
+</ul>
+</li>
+<li>事务被提交后触发 <ul>
+<li>Connection::EVENT_COMMIT_TRANSACTION</li>
+</ul>
+</li>
+<li>事务回滚后触发 <ul>
+<li>Connection::EVENT_ROLLBACK_TRANSACTION</li>
+</ul>
+</li>
+</ul>
+<p><strong>Response # Http响应</strong></p>
+<ul>
+<li>Response响应发送之前触发 <ul>
+<li>Response::EVENT_BEFORE_SEND</li>
+</ul>
+</li>
+<li>Response响应发送之后触发 <ul>
+<li>Response::EVENT_AFTER_SEND</li>
+</ul>
+</li>
+<li>Response响应内容准备好之后触发 <ul>
+<li>Response::EVENT_AFTER_PREPARE</li>
+</ul>
+</li>
+</ul>
+<p><strong>User # 会员登陆授权</strong></p>
+<ul>
+<li>登陆之前触发 <ul>
+<li>User::EVENT_BEFORE_LOGIN</li>
+</ul>
+</li>
+<li>登陆之后触发 <ul>
+<li>User::EVENT_AFTER_LOGIN</li>
+</ul>
+</li>
+<li>注销之前触发 <ul>
+<li>User::EVENT_BEFORE_LOGOUT</li>
+</ul>
+</li>
+<li>注销之后触发 <ul>
+<li>User::EVENT_AFTER_LOGOUT</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>文中部分内容引用自：<br><span id="ref-1"></span><a href="http://www.digpage.com/event.html" target="_blank" rel="noopener">[1]深入理解Yii2.0-事件</a></p>
+</blockquote>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/01/08/Yii2-resources.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>重头再来，新的起点！ <br/>
+Hello World! <br/>
+<hr/>本站使用主题 <a href="https://github.com/shenliyang/hexo-theme-snippet/">snippet</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/nash-x9" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:x9_sec@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://wpa.qq.com/msgrd?v=3&uin=1649880988&site=qq&menu=yes" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="http://t.qq.com/txzcmt" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/php/"><i class="fa" aria-hidden="true">PHP</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/"><i class="fa" aria-hidden="true">其它</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/backend/Yii2/"><i class="fa" aria-hidden="true">Yii2</i></a><span class="category-list-count">4</span></li></ul></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/"><i class="fa" aria-hidden="true">一月 2018</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/Yii2工具/" style="font-size: 10px;">Yii2工具</a> <a href="/tags/Yii2教程/" style="font-size: 10px;">Yii2教程</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2/" style="font-size: 10px;">yii2</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/yii2-event/" style="font-size: 10px;">yii2-event</a> <a href="/tags/yii2事件/" style="font-size: 10px;">yii2事件</a> <a href="/tags/学习资料/" style="font-size: 15px;">学习资料</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
+        
+            <a href="http://www.zyload.com" class="fa" target="_blank">资源树</a>
+        
+            <a href="http://www.kriss.pub/" class="fa" target="_blank">kriss的博客</a>
+        
+		<hr />
+			<a href="https://coding.net/pages/">
+				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
+			</a>
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
