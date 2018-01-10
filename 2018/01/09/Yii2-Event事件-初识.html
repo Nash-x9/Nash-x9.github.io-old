@@ -175,7 +175,7 @@
     
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
-        <span class="date-meta">2018/01/09</span>
+        <span class="date-meta">2018/01/10</span>
     </span>
 </div>
 
@@ -402,6 +402,15 @@
 </ul>
 </li>
 </ul>
+<h2 id="一些使用技巧"><a href="#一些使用技巧" class="headerlink" title="一些使用技巧"></a>一些使用技巧</h2><p>使用事件不仅可以写到controller里面，实现这些用户注册成功触发SayHelloToUser事件这个场景。</p>
+<p>也可以写到BootStrap文件中，实现一些比如全局安全检测，日志等功能。另外也可以写到<strong>配置文件</strong>中。下面简单介绍一下<strong>配置文件实现绑定事件handler</strong>的流程。</p>
+<p>下面贴一个用户登录事件绑定的实现，代码实现了登录后修改最后登录时间。<br>config/main.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">  <span class="string">'user'</span> =&gt; [</span><br><span class="line">    <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\User'</span>,</span><br><span class="line">    <span class="string">'enableAutoLogin'</span> =&gt; <span class="keyword">true</span>,	</span><br><span class="line">    <span class="string">'on afterLogin'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">($event)</span></span>&#123;</span><br><span class="line">      $user = $event-&gt;identity;</span><br><span class="line">      $user-&gt;loginTime = time();</span><br><span class="line">      $user-&gt;save();</span><br><span class="line">    &#125;    </span><br><span class="line">  ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>上面就是在配置文件中绑定事件handler的基本形式。<br>大体模型如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">  <span class="string">'自定义component'</span>=&gt;[</span><br><span class="line">    <span class="string">'class'</span>=&gt;<span class="string">'\path\自定义'</span>,</span><br><span class="line">    <span class="string">'on Event名称'</span>=&gt; <span class="function"><span class="keyword">function</span><span class="params">($event)</span></span>&#123;</span><br><span class="line">      <span class="comment">//handler内容</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
+<h2 id="一些其它需要留意的地方"><a href="#一些其它需要留意的地方" class="headerlink" title="一些其它需要留意的地方"></a>一些其它需要留意的地方</h2><ul>
+<li><strong>事件是基于Component的，而不是基于Object的。</strong></li>
+<li><strong>Handler的形式必须是函数形式的。</strong></li>
+</ul>
 <blockquote>
 <p>文中部分内容引用自：<br><span id="ref-1"></span><a href="http://www.digpage.com/event.html" target="_blank" rel="noopener">[1]深入理解Yii2.0-事件</a></p>
 </blockquote>
@@ -412,6 +421,11 @@
         <div>
             
                 转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+<br>
+<div class="social">
+如果文章对您有所帮助，希望继续支持，您的支持是我最大的动力
+<a href="/about/#捐助本站"><i class="fa fa-fw fa-jpy"></i>捐助</a>
+</div>
             
         </div>
         <div>
