@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://war9.cn">
+    <!--SEO-->
+
+<meta name="description" content="小九博客致力于分享程序员路上遇到的各种坑"/>
+
+
+<meta name="keywords" content="小九博客,PHP,程序员,yii2,教程"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>PHP反射机制 | 小九博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1271783103&web_id=1271783103" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+    <meta name="baidu-site-verification" content="c2Fj3b4epVcUxJgt" />
+    <script>
+        //push
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Hello World </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw fa-home"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/php/"><i class="fa fa-fw "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/backend/"><i class="fa fa-fw "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/frontend/"><i class="fa fa-fw "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/other/"><i class="fa fa-fw "></i>其它</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/myspace/"><i class="fa fa-fw "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/about/"><i class="fa fa-fw "></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="PHP反射机制">
+            
+            PHP反射机制
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>PHP</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            PHP
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/15</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在PHP5以后，加入了一个反射（Reflection）类，使用此类可以方便的获取某类的属性、常量、方法等。基本涵盖了想要获取类的所有信息。也可以扩展自身类，为使用类的人提供更多信息，而不必阅读源代码。</p>
+<p>可以使用的场景非常多，比如自动生成文档，自动化插件等。</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
+<li><a href="#getConstants"><strong>获取常量列表</strong></a></li>
+<li><a href="#getMethods"><strong>获取方法列表</strong></a></li>
+<li><a href="#getProperties"><strong>获取属性列表</strong></a></li>
+</ul>
+<p>由于使用比较简单，其它请参考官方文档。<br><a href="http://php.net/manual/zh/class.reflectionclass.php" target="_blank" rel="noopener"><strong>完整的方法列表请点击查看</strong></a></p>
+<p>我们定义一个学生类，代码如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line"><span class="keyword">const</span> SCHOOL = <span class="string">'BeiJing Primary School'</span>;</span><br><span class="line"><span class="keyword">const</span> OBLIGATORY_COURSE = <span class="string">'CHINESE'</span>;</span><br><span class="line"><span class="keyword">public</span> $name;</span><br><span class="line"><span class="keyword">public</span> $sex;</span><br><span class="line"><span class="keyword">public</span> $id;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getSex</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;sex;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getId</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;id;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span><span class="params">($name)</span></span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;name = $name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setSex</span><span class="params">($sex)</span></span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;sex = $sex;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setId</span><span class="params">($id)</span></span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;id = $id;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>首先new一个反射类，里面参数写上你想获取类的类名。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$objectClass = <span class="keyword">new</span> \ReflectionClass(<span class="string">'Student'</span>);</span><br><span class="line"><span class="comment">//$objectClass-&gt;[方法]</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><span id="getConstants"></span><strong>获取常量列表</strong> =&gt; public array getConstants ( void ) </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">constArray = <span class="variable">$objectClass</span>-&gt;getConstants();</span></span><br><span class="line"><span class="meta">var_dump($</span><span class="bash">constArray);</span></span><br></pre></td></tr></table></figure>
+<p>将打印如下结果:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">array</span><span class="params">(<span class="number">2</span>)</span></span> &#123;</span><br><span class="line">[<span class="string">"SCHOOL"</span>]=&gt;</span><br><span class="line"><span class="function"><span class="title">string</span><span class="params">(<span class="number">22</span>)</span></span> <span class="string">"BeiJing Primary School"</span></span><br><span class="line">[<span class="string">"OBLIGATORY_COURSE"</span>]=&gt;</span><br><span class="line"><span class="function"><span class="title">string</span><span class="params">(<span class="number">7</span>)</span></span> <span class="string">"CHINESE"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><span id="getMethods"></span><strong>获取方法列表</strong> =&gt; public array ReflectionClass::getMethods ([ int $filter ] )<br>参数filter，对方法列表进行过滤，默认不过滤。<br>可使用提供的常量进行过滤</p>
+<ul>
+<li>ReflectionMethod::IS_STATIC</li>
+<li>ReflectionMethod::IS_PUBLIC</li>
+<li>ReflectionMethod::IS_PROTECTED</li>
+<li>ReflectionMethod::IS_PRIVATE</li>
+<li>ReflectionMethod::IS_ABSTRACT</li>
+<li>ReflectionMethod::IS_FINAL<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">methodArray = <span class="variable">$objectClass</span>-&gt;getMethods();</span></span><br><span class="line"><span class="meta">var_dump($</span><span class="bash">methodArray);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>将打印如下结果:</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">    array(<span class="number">6</span>) &#123;</span><br><span class="line">  [<span class="number">0</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">2</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"getName"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">1</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">3</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">6</span>) <span class="string">"getSex"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">2</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">4</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">5</span>) <span class="string">"getId"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">3</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">5</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"setName"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">4</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">6</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">6</span>) <span class="string">"setSex"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">5</span>]=&gt;</span><br><span class="line">  object(ReflectionMethod)#<span class="number">7</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">5</span>) <span class="string">"setId"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><span id="getProperties"></span><strong>获取属性列表</strong> =&gt; public array ReflectionClass::getProperties ([ int $filter ] )</p>
+<p>参数filter用于过滤结果，可用常量如下：</p>
+<ul>
+<li><p>ReflectionProperty::IS_STATIC<br>指示了 static 的属性。</p>
+</li>
+<li><p>ReflectionProperty::IS_PUBLIC<br>指示了 public 的属性。</p>
+</li>
+<li><p>ReflectionProperty::IS_PROTECTED<br>指示了 protected 的属性。</p>
+</li>
+<li><p>ReflectionProperty::IS_PRIVATE<br>指示了 private 的属性。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">propertyArray = <span class="variable">$objectClass</span>-&gt;getProperties();</span></span><br><span class="line"><span class="meta">var_dump($</span><span class="bash">propertyArray);</span></span><br></pre></td></tr></table></figure>
+<p>将打印如下结果:</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">array(<span class="number">3</span>) &#123;</span><br><span class="line">  [<span class="number">0</span>]=&gt;</span><br><span class="line">  object(ReflectionProperty)#<span class="number">2</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">4</span>) <span class="string">"name"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">1</span>]=&gt;</span><br><span class="line">  object(ReflectionProperty)#<span class="number">3</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">3</span>) <span class="string">"sex"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="number">2</span>]=&gt;</span><br><span class="line">  object(ReflectionProperty)#<span class="number">4</span> (<span class="number">2</span>) &#123;</span><br><span class="line">    [<span class="string">"name"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">2</span>) <span class="string">"id"</span></span><br><span class="line">    [<span class="string">"class"</span>]=&gt;</span><br><span class="line">    <span class="type">string</span>(<span class="number">7</span>) <span class="string">"Student"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+<br>
+<div class="social">
+如果文章对您有所帮助，希望继续支持，您的支持是我最大的动力
+<a href="/about/#捐助本站"><i class="fa fa-fw fa-jpy"></i>捐助</a>
+</div>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/01/09/Yii2-Event事件-初识.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>重头再来，新的起点！ <br/>
+Hello World! <br/>
+<hr/>本站使用主题 <a href="https://github.com/shenliyang/hexo-theme-snippet/">snippet</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/nash-x9" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:x9_sec@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://wpa.qq.com/msgrd?v=3&uin=1649880988&site=qq&menu=yes" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="http://t.qq.com/txzcmt" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/php/"><i class="fa" aria-hidden="true">PHP</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/"><i class="fa" aria-hidden="true">其它</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/backend/Yii2/"><i class="fa" aria-hidden="true">Yii2</i></a><span class="category-list-count">4</span></li></ul></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/"><i class="fa" aria-hidden="true">一月 2018</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/Yii2工具/" style="font-size: 10px;">Yii2工具</a> <a href="/tags/Yii2教程/" style="font-size: 10px;">Yii2教程</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2/" style="font-size: 10px;">yii2</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/yii2-event/" style="font-size: 10px;">yii2-event</a> <a href="/tags/yii2事件/" style="font-size: 10px;">yii2事件</a> <a href="/tags/学习资料/" style="font-size: 15px;">学习资料</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
+        
+            <a href="http://www.zyload.com" class="fa" target="_blank">资源树</a>
+        
+            <a href="http://www.kriss.pub/" class="fa" target="_blank">kriss的博客</a>
+        
+		<hr />
+			<a href="https://coding.net/pages/">
+				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
+			</a>
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
