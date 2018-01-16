@@ -29,7 +29,7 @@
     <!--Title-->
 
 
-<title>标签: yii2 | 小九博客</title>
+<title>Yii2-Editable插件【GridView编辑】 | 小九博客</title>
 
 
 
@@ -37,6 +37,8 @@
 
     
 
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
 
 
 
@@ -143,41 +145,175 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <h3> 
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Yii2-Editable插件【GridView编辑】">
+            
+            Yii2-Editable插件【GridView编辑】
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Yii2</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            Yii2
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/16</span>
+    </span>
+</div>
 
-    yii2 
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><strong>项目过程中遇到一个这样的需求，想要在表格页面（GridView所在页）直接修改数据。在yiiframework.com进行一番探索，发现了yii2-editable插件。通过github搜索发现了N款yii2-editable插件。我们挑选综合排名前三个进行试用。</strong></p>
+<h2 id="1-kartik-v-yii2-editable"><a href="#1-kartik-v-yii2-editable" class="headerlink" title="1.kartik-v/yii2-editable"></a>1.kartik-v/yii2-editable</h2><ul>
+<li><p>项目github地址：<a href="https://github.com/kartik-v/yii2-editable" target="_blank" rel="noopener">https://github.com/kartik-v/yii2-editable</a></p>
+</li>
+<li><p>项目文档地址：<a href="http://demos.krajee.com/editable" target="_blank" rel="noopener">http://demos.krajee.com/editable</a></p>
+</li>
+<li><p>开源协议：BSD-3-Clause license</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>Star最多</li>
+<li>国内有教程介绍该插件（讲解不细）</li>
+<li>文档，演示比较完善</li>
+<li>有两种样式，【按钮式，Link式】点击修改数据</li>
+<li>数据形式多样【DatePicker、textarea、select等等】</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>依赖于其它项目：如果要在GridView上使用该插件，需安装kartik-v/yii2-grid。或者使用<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'value'</span>=&gt;<span class="function"><span class="keyword">function</span><span class="params">($model)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> \kartik\editable\Editable::widget([]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>的形式。这种形式需要改写controller，要写的内容较多。</p>
+<ul>
+<li>保存按钮很怪。保存按钮是一个下载图标。。</li>
+</ul>
+<p><strong> 具体使用介绍后续完善。</strong>//TODO</p>
+</li>
+</ul>
+<h2 id="2-yii2mod-yii2-editable"><a href="#2-yii2mod-yii2-editable" class="headerlink" title="2.yii2mod/yii2-editable"></a>2.yii2mod/yii2-editable</h2><ul>
+<li><p>项目github地址：<a href="https://github.com/yii2mod/yii2-editable" target="_blank" rel="noopener">https://github.com/yii2mod/yii2-editable</a></p>
+</li>
+<li><p>项目文档地址：<a href="https://github.com/yii2mod/yii2-editable#yii2-editable-widget" target="_blank" rel="noopener">https://github.com/yii2mod/yii2-editable#yii2-editable-widget</a></p>
+</li>
+<li><p>开源协议：MIT license</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li><p>简单易用，使用简单方便<br>1.在view层GirdView里需要的字段改写成如下代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">'class'</span>=&gt;EditableColumn::class,<span class="comment">//Editable字段类</span></span><br><span class="line">  <span class="string">'attribute'</span> =&gt; <span class="string">'name'</span>,<span class="comment">//字段名称</span></span><br><span class="line">  <span class="string">'url'</span> =&gt; [<span class="string">'change-name'</span>],<span class="comment">//路由参数</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>2.在Controller里actions方法里加入如下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$actions=<span class="keyword">parent</span>::actions();</span><br><span class="line">$actions[<span class="string">'change-name'</span>]=[</span><br><span class="line">    <span class="string">'class'</span> =&gt; EditableAction::class,<span class="comment">//EditableAction类</span></span><br><span class="line">    <span class="string">'modelClass'</span> =&gt; User::class,<span class="comment">//数据model类</span></span><br><span class="line">  ];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>没完善的文档</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2amigos-yii2-editable-widget"><a href="#3-2amigos-yii2-editable-widget" class="headerlink" title="3.2amigos/yii2-editable-widget"></a>3.2amigos/yii2-editable-widget</h2><ul>
+<li><p>项目github地址：<a href="https://github.com/2amigos/yii2-editable-widget" target="_blank" rel="noopener">https://github.com/2amigos/yii2-editable-widget</a></p>
+</li>
+<li><p>项目文档地址：<a href="https://github.com/2amigos/yii2-editable-widget#x-editable-widget-for-yii2" target="_blank" rel="noopener">https://github.com/2amigos/yii2-editable-widget#x-editable-widget-for-yii2</a></p>
+</li>
+<li><p>开源协议：The BSD License (BSD).</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>作者是团队</li>
+<li>良好的单元测试提供</li>
+<li>数据形式多样</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>没完善的文档</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上三款插件除官方推荐插件<strong>kartik-v/yii2-editable</strong>外，其余两个插件都是基于<strong>x-editable</strong>外部Jquery组件制作的。</p>
+<p>因此<strong>kartik-v/yii2-editable</strong>的文档比较完善<br><em>(PS.稍微有点乱，也可能是我看到一片一片的英文产生的感觉。。)</em></p>
+<p>而其它两个插件的文档只能通过阅读<a href="http://vitalets.github.io/x-editable/index.html" target="_blank" rel="noopener"><strong>X-Editable</strong></a>文档进行更多定制。</p>
+<p>不过可以根据项目大小选择适合的项目</p>
+<p>如果项目不是很大，这样的需求较弱，建议使用<strong>yii2mod/yii2-editable</strong>插件，因为其小巧精致，使用简单。如果项目已经完成，再改写起来，使用该插件较为方便。并且可以很方便的在<strong>GridView</strong>上改写使用。</p>
+<p>如果该需求较强，建议使用kartik-v和2amigos的项目。这俩项目在单独的插件形式使用上，功能比较多。</p>
+<p>这三款插件都是Yii2插件常见的贡献者。尤其是kartik-v和2amigos团队。感谢他们对Yii2作出的贡献。</p>
 
+    </div>
 
-</h3>
-
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/01/09/Yii2-Event事件-初识.html">Yii2 Event事件-初识</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年01月09日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                 yii2-事件 系列 第一篇
-
-
-博主使用yii2时间不长,用于备忘分享，若有不正之处欢迎指正。十分感谢。本文仅用于快速使用yii2事件。后续文章将详细介绍yii2事件的更多细节。
-
-
-前言最近在使用框架做项目中，多次使用到了Beh...
-            </p> 
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+<br>
+<div class="social">
+如果文章对您有所帮助，希望继续支持，您的支持是我最大的动力
+<a href="/about/#捐助本站"><i class="fa fa-fw fa-jpy"></i>捐助</a>
+</div>
+            
         </div>
-    </article>
- 
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/01/15/PHPReflection.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
 
 
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
 
 
 
@@ -275,77 +411,6 @@ Hello World! <br/>
     <h3 class="title">标签云</h3>
     <div class="content tag-cloud">
         <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/Yii2工具/" style="font-size: 10px;">Yii2工具</a> <a href="/tags/Yii2教程/" style="font-size: 10px;">Yii2教程</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2/" style="font-size: 10px;">yii2</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/yii2-editable/" style="font-size: 10px;">yii2-editable</a> <a href="/tags/yii2-event/" style="font-size: 10px;">yii2-event</a> <a href="/tags/yii2事件/" style="font-size: 10px;">yii2事件</a> <a href="/tags/学习资料/" style="font-size: 15px;">学习资料</a>
-    </div>
-  </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
-        
-            <a href="http://www.zyload.com" class="fa" target="_blank">资源树</a>
-        
-            <a href="http://www.kriss.pub/" class="fa" target="_blank">kriss的博客</a>
-        
-		<hr />
-			<a href="https://coding.net/pages/">
-				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
-			</a>
-        </div>
-    </div>
-
-
-        
-    </aside>
-
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-
-<a id="back-to-top" class="hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
-
-
-
-
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12"> 
-                <span>Copyright &copy; 2017
-                </span> | 
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> | 
-                <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-	<script src="/js/search.js?rev=@@hash"></script>
-
-
-<script src="/js/app.js?rev=@@hash"></script>
-
-
-</body>
-</html>P/" style="font-size: 15px;">PHP</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/Yii2工具/" style="font-size: 10px;">Yii2工具</a> <a href="/tags/Yii2教程/" style="font-size: 10px;">Yii2教程</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2/" style="font-size: 10px;">yii2</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/yii2-editable/" style="font-size: 10px;">yii2-editable</a> <a href="/tags/yii2-event/" style="font-size: 10px;">yii2-event</a> <a href="/tags/yii2事件/" style="font-size: 10px;">yii2事件</a> <a href="/tags/学习资料/" style="font-size: 15px;">学习资料</a>
     </div>
   </div>
 
