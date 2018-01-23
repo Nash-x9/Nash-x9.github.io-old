@@ -29,7 +29,7 @@
     <!--Title-->
 
 
-<title>Codecept单元测试的使用 | 小九博客</title>
+<title>Codeception安装使用 | 小九博客</title>
 
 
 
@@ -149,9 +149,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Codecept单元测试的使用">
+        <h1 id="Codeception安装使用">
             
-            Codecept单元测试的使用
+            Codeception安装使用
             
         </h1>
         <div class="post-meta">
@@ -175,7 +175,7 @@
     
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
-        <span class="date-meta">2018/01/22</span>
+        <span class="date-meta">2018/01/23</span>
     </span>
 </div>
 
@@ -192,6 +192,9 @@
 </blockquote>
 <h3 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer <span class="keyword">require</span> <span class="string">"codeception/codeception"</span> --dev</span><br></pre></td></tr></table></figure>
 <p><em>我在安装的时候，发现Yii2已经集成了该插件，但是缺少”guzzlehttp/guzzle”依赖无法运行。于是我执行了。composer require guzzlehttp/guzzle</em></p>
+<p><strong> <font color="red">2018年1月23日 11:04:07更新一些遇到的坑：</font></strong></p>
+<p><strong><font color="red">运行时可能会遇到各种神奇的错误，这个时候一定要注意你的PHP版本。如果是PHP7版本，记的wget <a href="http://codeception.com/codecept.phar" target="_blank" rel="noopener">http://codeception.com/codecept.phar</a> 。 不然你将遇到各种类找到等奇奇怪怪的错误…PHP5版本wget <a href="http://codeception.com/php5/codecept.phar" target="_blank" rel="noopener">http://codeception.com/php5/codecept.phar</a></font></strong></p>
+<p><strong>因为文章时效性，具体准确链接以官方网站为准。</strong></p>
 <p>在测试时，如果是高级模板(yii2-advanced-template)，单元测试将区分不同的目录，在backend、frontend、common分别会有一个test文件夹，用于单元测试。</p>
 <p>如果测试后台应用，就切换到backend目录，运行codecept run。如果想测试所有，则在项目根目录运行codecept run。</p>
 <ul>
