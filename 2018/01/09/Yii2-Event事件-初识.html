@@ -175,7 +175,7 @@
     
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
-        <span class="date-meta">2018/01/23</span>
+        <span class="date-meta">2018/01/24</span>
     </span>
 </div>
 
@@ -408,7 +408,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">  <span class="string">'user'</span> =&gt; [</span><br><span class="line">    <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\User'</span>,</span><br><span class="line">    <span class="string">'enableAutoLogin'</span> =&gt; <span class="keyword">true</span>,	</span><br><span class="line">    <span class="string">'on afterLogin'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">($event)</span></span>&#123;</span><br><span class="line">      $user = $event-&gt;identity;</span><br><span class="line">      $user-&gt;loginTime = time();</span><br><span class="line">      $user-&gt;save();</span><br><span class="line">    &#125;    </span><br><span class="line">  ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>上面就是在配置文件中绑定事件handler的基本形式。<br>大体模型如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">  <span class="string">'自定义component'</span>=&gt;[</span><br><span class="line">    <span class="string">'class'</span>=&gt;<span class="string">'\path\自定义'</span>,</span><br><span class="line">    <span class="string">'on Event名称'</span>=&gt; <span class="function"><span class="keyword">function</span><span class="params">($event)</span></span>&#123;</span><br><span class="line">      <span class="comment">//handler内容</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
 <h2 id="一些其它需要留意的地方"><a href="#一些其它需要留意的地方" class="headerlink" title="一些其它需要留意的地方"></a>一些其它需要留意的地方</h2><ul>
-<li><strong>事件是基于Component的，而不是基于Object的。</strong></li>
+<li><strong>事件是在Component引入的，yii\base\Object是不支持事件的。使用时要从yii\base\Component进行继承</strong></li>
 <li><strong>Handler的形式必须是函数形式的。</strong></li>
 </ul>
 <blockquote>
