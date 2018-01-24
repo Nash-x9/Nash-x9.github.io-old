@@ -29,7 +29,7 @@
     <!--Title-->
 
 
-<title>标签: yii2-event | 小九博客</title>
+<title>【算法】变量交换 | 小九博客</title>
 
 
 
@@ -37,6 +37,8 @@
 
     
 
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
 
 
 
@@ -143,41 +145,114 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <h3> 
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="【算法】变量交换">
+            
+            【算法】变量交换
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>PHP</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            PHP
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/24</span>
+    </span>
+</div>
 
-    yii2-event 
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>我们常见的两变量交换会采用第三个变量。<br>本文记录几个不使用临时变量交换方法。</p>
+</blockquote>
+<ul>
+<li>list 简洁 不改变变量类型适用所有变量类型<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  $a = <span class="string">"你好"</span>;</span><br><span class="line">  $b = <span class="string">"世界"</span>;</span><br><span class="line">  <span class="keyword">echo</span> $a.$b;<span class="comment">//输出 “你好世界”</span></span><br><span class="line">  <span class="keyword">list</span>($b,$a) = [$a,$b];</span><br><span class="line">  <span class="keyword">echo</span> $a.$b;<span class="comment">//输出 “世界你好”</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>^异或 适用于<strong>等长</strong>文本和int类型<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  $a = <span class="number">98</span>;</span><br><span class="line">  $b = <span class="number">12</span>;</span><br><span class="line">  var_dump($a);<span class="comment">//int(98)</span></span><br><span class="line">  var_dump($b);<span class="comment">//int(12)</span></span><br><span class="line">  $a = $a^$b;</span><br><span class="line">  $b = $b^$a;</span><br><span class="line">  $a = $a^$b;</span><br><span class="line">  var_dump($a);<span class="comment">//int(12)</span></span><br><span class="line">  var_dump($b);<span class="comment">//int(98)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>经过测试list方法和异或方法执行时间毫秒级暂时看不出区别。</p>
+<p>但是内存方面list方法会比异或方法占用要多一点。</p>
+<font color="red">事实上，<br>List的方法虽然简洁，但是内存开销比新建一个中间变量还要大。。<br></font>
 
+<p>测试代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  $a = <span class="number">9899999</span>;</span><br><span class="line">  $b = <span class="number">4546464</span>;</span><br><span class="line">  var_dump($a);</span><br><span class="line">  var_dump($b);</span><br><span class="line">  $t1 = microtime(<span class="keyword">true</span>);</span><br><span class="line">  $a = $a^$b;</span><br><span class="line">  $b = $b^$a;</span><br><span class="line">  $a = $a^$b;</span><br><span class="line">  $t2 = microtime(<span class="keyword">true</span>);</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'耗时'</span>.($t2-$t1).<span class="string">'微秒&lt;br&gt;'</span>;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'Now memory_get_usage: '</span> . memory_get_usage() . <span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">  var_dump($a);</span><br><span class="line">  var_dump($b);</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  int(9899999) int(4546464) 耗时1.9073486328125E-6微秒</span></span><br><span class="line"><span class="comment">  Now memory_get_usage: 352232</span></span><br><span class="line"><span class="comment">  int(4546464) int(9899999)</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$a = <span class="number">9899999</span>;</span><br><span class="line">$b = <span class="number">4546464</span>;</span><br><span class="line">var_dump($a);</span><br><span class="line">var_dump($b);</span><br><span class="line">$t1 = microtime(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">list</span>($b,$a) = [$a,$b];</span><br><span class="line">$t2 = microtime(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'耗时'</span>.($t2-$t1).<span class="string">'微秒&lt;br&gt;'</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Now memory_get_usage: '</span> . memory_get_usage() . <span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">var_dump($a);</span><br><span class="line">var_dump($b);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">int(9899999) int(4546464) 耗时1.9073486328125E-6微秒</span></span><br><span class="line"><span class="comment">Now memory_get_usage: 352312</span></span><br><span class="line"><span class="comment">int(4546464) int(9899999)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
 
-</h3>
-
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/01/09/Yii2-Event事件-初识.html">Yii2 Event事件-初识</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年01月09日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                 yii2-事件 系列 第一篇
-
-
-博主使用yii2时间不长,用于备忘分享，若有不正之处欢迎指正。十分感谢。本文仅用于快速使用yii2事件。后续文章将详细介绍yii2事件的更多细节。
-
-
-前言最近在使用框架做项目中，多次使用到了Beh...
-            </p> 
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+<br>
+<div class="social">
+如果文章对您有所帮助，希望继续支持，您的支持是我最大的动力
+<a href="/about/#捐助本站"><i class="fa fa-fw fa-jpy"></i>捐助</a>
+</div>
+            
         </div>
-    </article>
- 
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/01/23/CodeceptionGuide.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
 
 
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
 
 
 
