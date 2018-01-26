@@ -29,7 +29,7 @@
     <!--Title-->
 
 
-<title>Yii2-Editable插件【GridView编辑】 | 小九博客</title>
+<title>Yii2 Event事件-场景应用 | 小九博客</title>
 
 
 
@@ -149,9 +149,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Yii2-Editable插件【GridView编辑】">
+        <h1 id="Yii2 Event事件-场景应用">
             
-            Yii2-Editable插件【GridView编辑】
+            Yii2 Event事件-场景应用
             
         </h1>
         <div class="post-meta">
@@ -175,7 +175,7 @@
     
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
-        <span class="date-meta">2018/01/16</span>
+        <span class="date-meta">2018/01/26</span>
     </span>
 </div>
 
@@ -184,84 +184,31 @@
     </div>
     
     <div class="post-body post-content">
-        <p><strong>项目过程中遇到一个这样的需求，想要在表格页面（GridView所在页）直接修改数据。在yiiframework.com进行一番探索，发现了yii2-editable插件。通过github搜索发现了N款yii2-editable插件。我们挑选综合排名前三个进行试用。</strong></p>
-<h2 id="1-kartik-v-yii2-editable"><a href="#1-kartik-v-yii2-editable" class="headerlink" title="1.kartik-v/yii2-editable"></a>1.kartik-v/yii2-editable</h2><ul>
-<li><p>项目github地址：<a href="https://github.com/kartik-v/yii2-editable" target="_blank" rel="noopener">https://github.com/kartik-v/yii2-editable</a></p>
-</li>
-<li><p>项目文档地址：<a href="http://demos.krajee.com/editable" target="_blank" rel="noopener">http://demos.krajee.com/editable</a></p>
-</li>
-<li><p>开源协议：BSD-3-Clause license</p>
-</li>
-<li><p>优点</p>
-<ul>
-<li>Star最多</li>
-<li>国内有教程介绍该插件（讲解不细）</li>
-<li>文档，演示比较完善</li>
-<li>有两种样式，【按钮式，Link式】点击修改数据</li>
-<li>数据形式多样【DatePicker、textarea、select等等】</li>
-</ul>
-</li>
-<li><p>缺点</p>
-<ul>
-<li>依赖于其它项目：如果要在GridView上使用该插件，需安装kartik-v/yii2-grid。或者使用<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'value'</span>=&gt;<span class="function"><span class="keyword">function</span><span class="params">($model)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> \kartik\editable\Editable::widget([]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>的形式。这种形式需要改写controller，要写的内容较多。</p>
-<ul>
-<li>保存按钮很怪。保存按钮是一个下载图标。。</li>
-</ul>
-<p><strong> 具体使用介绍后续完善。</strong>//TODO</p>
-</li>
-</ul>
-<h2 id="2-yii2mod-yii2-editable"><a href="#2-yii2mod-yii2-editable" class="headerlink" title="2.yii2mod/yii2-editable"></a>2.yii2mod/yii2-editable</h2><ul>
-<li><p>项目github地址：<a href="https://github.com/yii2mod/yii2-editable" target="_blank" rel="noopener">https://github.com/yii2mod/yii2-editable</a></p>
-</li>
-<li><p>项目文档地址：<a href="https://github.com/yii2mod/yii2-editable#yii2-editable-widget" target="_blank" rel="noopener">https://github.com/yii2mod/yii2-editable#yii2-editable-widget</a></p>
-</li>
-<li><p>开源协议：MIT license</p>
-</li>
-<li><p>优点</p>
-<ul>
-<li><p>简单易用，使用简单方便<br>1.在view层GirdView里需要的字段改写成如下代码。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">'class'</span>=&gt;EditableColumn::class,<span class="comment">//Editable字段类</span></span><br><span class="line">  <span class="string">'attribute'</span> =&gt; <span class="string">'name'</span>,<span class="comment">//字段名称</span></span><br><span class="line">  <span class="string">'url'</span> =&gt; [<span class="string">'change-name'</span>],<span class="comment">//路由参数</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
-<p>2.在Controller里actions方法里加入如下代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$actions=<span class="keyword">parent</span>::actions();</span><br><span class="line">$actions[<span class="string">'change-name'</span>]=[</span><br><span class="line">    <span class="string">'class'</span> =&gt; EditableAction::class,<span class="comment">//EditableAction类</span></span><br><span class="line">    <span class="string">'modelClass'</span> =&gt; User::class,<span class="comment">//数据model类</span></span><br><span class="line">  ];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>缺点</p>
-<ul>
-<li>没完善的文档</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-2amigos-yii2-editable-widget"><a href="#3-2amigos-yii2-editable-widget" class="headerlink" title="3.2amigos/yii2-editable-widget"></a>3.2amigos/yii2-editable-widget</h2><ul>
-<li><p>项目github地址：<a href="https://github.com/2amigos/yii2-editable-widget" target="_blank" rel="noopener">https://github.com/2amigos/yii2-editable-widget</a></p>
-</li>
-<li><p>项目文档地址：<a href="https://github.com/2amigos/yii2-editable-widget#x-editable-widget-for-yii2" target="_blank" rel="noopener">https://github.com/2amigos/yii2-editable-widget#x-editable-widget-for-yii2</a></p>
-</li>
-<li><p>开源协议：The BSD License (BSD).</p>
-</li>
-<li><p>优点</p>
-<ul>
-<li>作者是团队</li>
-<li>良好的单元测试提供</li>
-<li>数据形式多样</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>没完善的文档</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上三款插件除官方推荐插件<strong>kartik-v/yii2-editable</strong>外，其余两个插件都是基于<strong>x-editable</strong>外部Jquery组件制作的。</p>
-<p>因此<strong>kartik-v/yii2-editable</strong>的文档比较完善<br><em>(PS.稍微有点乱，也可能是我看到一片一片的英文产生的感觉。。)</em></p>
-<p>而其它两个插件的文档只能通过阅读<a href="http://vitalets.github.io/x-editable/index.html" target="_blank" rel="noopener"><strong>X-Editable</strong></a>文档进行更多定制。</p>
-<p>不过可以根据项目大小选择适合的项目</p>
-<p>如果项目不是很大，这样的需求较弱，建议使用<strong>yii2mod/yii2-editable</strong>插件，因为其小巧精致，使用简单。如果项目已经完成，再改写起来，使用该插件较为方便。并且可以很方便的在<strong>GridView</strong>上改写使用。</p>
-<p>如果该需求较强，建议使用kartik-v和2amigos的项目。这俩项目在单独的插件形式使用上，功能比较多。</p>
-<p>这三款插件都是Yii2插件常见的贡献者。尤其是kartik-v和2amigos团队。感谢他们对Yii2作出的贡献。</p>
+        <h1 align="center"> yii2-事件 系列 第二篇</h1>
 
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过Yii2的事件功能，为我们的项目开发带来了极大的便捷性。<br>本文在介绍几个比较特别的事件同时，将通过介绍几个应用场景的方式，来更贴切实际开发。</p>
+<blockquote>
+<p>更多事件请查看<a href="http://nai8.me/tool-sc.html" target="_blank" rel="noopener"><strong>Yii2速查表</strong></a>或我的上篇文章<a href="https://war9.cn/2018/01/09/Yii2-Event%E4%BA%8B%E4%BB%B6-%E5%88%9D%E8%AF%86.html"><strong>Yii2 Event事件-初识</strong></a></p>
+</blockquote>
+<h2 id="EVENT-AFTER-FIND"><a href="#EVENT-AFTER-FIND" class="headerlink" title="EVENT_AFTER_FIND"></a>EVENT_AFTER_FIND</h2><p>在查询结束后，会触发EVENT_AFTER_FIND事件。<br>注意Yii2里没有EVENT_BEFORE_FIND事件(查询前)。</p>
+<p>而EVENT_AFTER_FIND和其它事件不同的是</p>
+<p>虽然该常量定义是BaseActiveRecord::EVENT_AFTER_FIND，</p>
+<p>但是该事件触发位置由yii\db\ActiveQuery触发。具体位置</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yii<span class="symbol">\d</span>b<span class="symbol">\A</span>ctiveQuery::populate()</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用场景 文章发布日期显示2分钟前这样的格式。</p>
+<p>1.绑定事件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\yii\base\Event::on(</span><br><span class="line">  BaseActiveRecord::className(),</span><br><span class="line">  BaseActiveRecord::EVENT_AFTER_FIND,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="params">($event)</span></span>&#123;</span><br><span class="line">   $model = $event-&gt;sender;</span><br><span class="line">   $model-&gt;update_date = time_tran($model-&gt;update_date);</span><br><span class="line">   $event-&gt;sender = $model;</span><br><span class="line">   <span class="keyword">return</span> $event;</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>2.新建时间转换函数</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function time_tran($agoTime)</span><br><span class="line">&#123;</span><br><span class="line">    $agoTime = strtotime($agoTime);</span><br><span class="line">    $time = time() - $agoTime;</span><br><span class="line">    <span class="keyword">if</span> ($time &gt;= <span class="number">31104000</span>) &#123; <span class="comment">// N年前</span></span><br><span class="line">      $num = (<span class="keyword">int</span>)($time / <span class="number">31104000</span>);</span><br><span class="line">      <span class="keyword">return</span> $num.<span class="string">'年前'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($time &gt;= <span class="number">2592000</span>) &#123; <span class="comment">// N月前</span></span><br><span class="line">      $num = (<span class="keyword">int</span>)($time / <span class="number">2592000</span>);</span><br><span class="line">      <span class="keyword">return</span> $num.<span class="string">'月前'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($time &gt;= <span class="number">86400</span>) &#123; <span class="comment">// N天前</span></span><br><span class="line">      $num = (<span class="keyword">int</span>)($time / <span class="number">86400</span>);</span><br><span class="line">      <span class="keyword">return</span> $num.<span class="string">'天前'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($time &gt;= <span class="number">3600</span>) &#123; <span class="comment">// N小时前</span></span><br><span class="line">      $num = (<span class="keyword">int</span>)($time / <span class="number">3600</span>);</span><br><span class="line">      <span class="keyword">return</span> $num.<span class="string">'小时前'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($time &gt; <span class="number">60</span>) &#123; <span class="comment">// N分钟前</span></span><br><span class="line">      $num = (<span class="keyword">int</span>)($time / <span class="number">60</span>);</span><br><span class="line">      <span class="keyword">return</span> $num.<span class="string">'分钟前'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'1分钟前'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="EVENT-BEFORE-VALIDATE"><a href="#EVENT-BEFORE-VALIDATE" class="headerlink" title="EVENT_BEFORE_VALIDATE"></a>EVENT_BEFORE_VALIDATE</h2><p>该事件顾名思义，就是在model验证前事件。</p>
+<p>该事件有一个很棒的特性，在触发该事件，当你的handler函数执行了一系列操作，这个时候如果你发现没有验证的必要的时候。<br>可以手动修改$event-&gt;isVaild = false。</p>
+<p>后续就不会再继续验证了。可以减少一些代码执行，提高效率。</p>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><p>有许多场景可以使用到事件，比如我们在用户注册后，发送验证邮件。<br>下面是事例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">console</span>\<span class="title">controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">console</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Component</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegesiterController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionTest</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    $core = <span class="keyword">new</span> Core();</span><br><span class="line">    $user = <span class="keyword">new</span> user();</span><br><span class="line">    $user-&gt;on(<span class="string">'regesiter'</span>, [$core, <span class="string">'verifyMail'</span>]);</span><br><span class="line">    $student-&gt;regesiter();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Component</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">regesiter</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"User regesited\n"</span>;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;trigger(<span class="string">'regesiter'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Core</span> <span class="keyword">extends</span> <span class="title">Component</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">verifyMail</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Core Send E-mail to User\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     <div class="post-footer">   
@@ -283,10 +230,8 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/01/22/CodeceptionUnitTest.html" class="pre-post btn btn-default"><i class="fa fa-angle-left fa-fw"></i>上一篇</a>
     
-    
-        <a href="/2018/01/15/PHPReflection.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+        <a href="/2018/01/24/algorithmExchange-variables.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
     
 </div>
 
