@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://war9.cn">
+    <!--SEO-->
+
+<meta name="description" content="小九博客致力于分享程序员路上遇到的各种坑"/>
+
+
+<meta name="keywords" content="小九博客,PHP,程序员,yii2,教程"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Codeception(三) | 小九博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1271783103&web_id=1271783103" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+    <meta name="baidu-site-verification" content="c2Fj3b4epVcUxJgt" />
+    <script>
+        //push
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Hello World </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw fa-home"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/php/"><i class="fa fa-fw "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/backend/"><i class="fa fa-fw "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/frontend/"><i class="fa fa-fw "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/other/"><i class="fa fa-fw "></i>其它</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/myspace/"><i class="fa fa-fw "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/about/"><i class="fa fa-fw "></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Codeception(三)">
+            
+            Codeception(三)
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Yii2</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            单元测试
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2018/01/29</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前两篇文章介绍了安装和单元测试。</p>
+<p>这篇文章我们来介绍Fixture概念和功能测试、验收测试。</p>
+<p>功能测试和验收测试在Codeception中，部分代码和测试流程很相似，所以我们也来说一下功能测试和验收测试的区别。</p>
+<h2 id="Fixture概念"><a href="#Fixture概念" class="headerlink" title="Fixture概念"></a>Fixture概念</h2><p>Fixtures 是测试中非常重要的一部分。他们的主要目的是建立一个固定/已知的环境状态以确保测试可重复并且按照预期方式运行。<br>Yii 提供一个简单可用的 Fixure 框架 允许你精确的定义你的 Fixtures 。</p>
+<p>Yii 的 Fixture 框架的核心概念称之为 fixture object 。<br>一个 Fixture object代表一个测试环境的某个特定方面，它是 yii\test\Fixture 或者其子类的实例。 比如，你可以使用 UserFixture 来确保用户DB表包含固定的数据。 你在运行一个测试之前加载一个或者多个 fixture object，<strong>并在结束后卸载他们。</strong></p>
+<p><font color="red"><br>如果使用该功能，记的创建自己的测试DB，并且在test-local里配置DB。该功能在卸载时，会<strong>清空数据库</strong>。<br></font></p>
+<blockquote>
+<p>官方文档:<a href="http://www.yiiframework.com/doc-2.0/guide-test-fixtures.html" target="_blank" rel="noopener">http://www.yiiframework.com/doc-2.0/guide-test-fixtures.html</a></p>
+</blockquote>
+<h2 id="功能测试和验收测试的区别"><a href="#功能测试和验收测试的区别" class="headerlink" title="功能测试和验收测试的区别"></a>功能测试和验收测试的区别</h2><ul>
+<li><p>功能测试 Functional Testing</p>
+<p>功能测试主要用于测试我们是否创建了正确的产品，逐项测试各个功能。<br>对于这种类型的测试，要涵盖所有可能情景的测试用例，即使这种情况在“现实环境”中不太可能存在。当进行这种类型的测试时，我们的目标是最大的代码覆盖率。</p>
+</li>
+<li><p>验收测试 Acceptance Testing</p>
+<p>验收测试是部署软件之前的最后一个测试操作。验收测试的目的是确保软件准备就绪，并且可以让最终用户将其用于执行软件的既定功能和任务。<br>这部分测试通常是与客户或内部测试人员合作完成的。<br>对于这种类型的测试，我们使用的测试用例涵盖了我们期望软件使用的典型场景。<br>该测试主要测试以下几个点</p>
+<ul>
+<li>可靠性，可用性：压力测试</li>
+<li>扩展性：负载测试进行验证。</li>
+<li>可用性：界面是否符合用户习惯等</li>
+<li>安全性：代码审计、入侵测试</li>
+<li>可维护性：通过演示如何提供软件更新/补丁来验证。</li>
+<li>可配置性：通过证明客户如何修改系统配置来满足他们的需求来进行验证。</li>
+</ul>
+</li>
+</ul>
+<h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
+<li><p>使用模版创建功能测试<br>同样的，我们使用模板来创建一个功能测试。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codecept g:cest functional StudentCest</span><br></pre></td></tr></table></figure>
+<p>创建好的文件会在tests/functional下.内容如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">backend</span>\<span class="title">tests</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">backend</span>\<span class="title">tests</span>\<span class="title">FunctionalTester</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentCest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_before</span><span class="params">(FunctionalTester $I)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_after</span><span class="params">(FunctionalTester $I)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// tests</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">tryToTest</span><span class="params">(FunctionalTester $I)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到内容和之前创建的Test模板很像。</p>
+<p>不同的是，这里的方法多了一个参数functionalTester。</p>
+<p>其实这个参数就是我们在<a href="/2018/01/23/Codeception-second.html">Codeception（二）</a>里面所说的actor概念。<a href="/2018/01/23/Codeception-second.html#Actors概念">传送门：点我跳转</a></p>
+</li>
+<li><p>配置<br>比如我们这里对登录功能做测试。需要使用到数据库，所以我们首先应配置数据库。</p>
+<p>修改config/test-local.php,如果我们项目中使用了多个数据库，也要配置多个db。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"> <span class="keyword">return</span> yii\helpers\ArrayHelper::merge(</span><br><span class="line">   <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">'/../../common/config/test-local.php'</span>,</span><br><span class="line">   <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">'/main.php'</span>,</span><br><span class="line">   <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">'/main-local.php'</span>,</span><br><span class="line">   <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">'/test.php'</span>,</span><br><span class="line">   [</span><br><span class="line">     <span class="string">'components'</span> =&gt; [</span><br><span class="line">       <span class="string">'db'</span> =&gt; [</span><br><span class="line">         <span class="string">'dsn'</span> =&gt; <span class="string">'mysql:host=localhost;dbname=yii2-test'</span>,</span><br><span class="line">         <span class="string">'username'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">         <span class="string">'password'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">       ],</span><br><span class="line">       <span class="string">'db2'</span> =&gt; [</span><br><span class="line">         <span class="string">'class'</span> =&gt; <span class="string">'yii\db\Connection'</span>,</span><br><span class="line">         <span class="string">'dsn'</span> =&gt; <span class="string">'mysql:host=localhost;dbname=yii2-test2'</span>,</span><br><span class="line">         <span class="string">'username'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">         <span class="string">'password'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">         <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</span><br><span class="line">       ],</span><br><span class="line">     ],</span><br><span class="line">   ]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义Fixture<br>定义Fixture，用于指定账号密码登录<br>修改刚才模板生成的文件，加入以下方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_fixtures</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    <span class="string">'user'</span> =&gt; [</span><br><span class="line">      <span class="string">'class'</span> =&gt; UserFixture::className(),</span><br><span class="line">      <span class="string">'dataFile'</span> =&gt; codecept_data_dir() . <span class="string">'login_data.php'</span>,</span><br><span class="line">    ]</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注：该方法会在Yii2::_before()里自动调用</em></p>
+<p>然后我们需要在tests/_data文件夹下写入登录数据</p>
+<p>/tests/_data/login_data.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">  [</span><br><span class="line">    <span class="string">'username'</span> =&gt; <span class="string">'erau'</span>,</span><br><span class="line">    <span class="string">'auth_key'</span> =&gt; <span class="string">'tUu1qHcde0diwUol3xeI-18MuHkkprQI'</span>,</span><br><span class="line">    <span class="comment">// password_0</span></span><br><span class="line">    <span class="string">'password_hash'</span> =&gt; <span class="string">'$2y$13$nJ1WDlBaGcbCdbNC5.5l4.sgy.OMEKCqtDQOdQ2OWpgiKRWYyzzne'</span>,</span><br><span class="line">    <span class="string">'password_reset_token'</span> =&gt; <span class="string">'RkD_Jw0_8HEedzLk7MM-ZKEFfYR7VbMr_1392559490'</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="string">'created_at'</span> =&gt; <span class="string">'1392559490'</span>,</span><br><span class="line">    <span class="string">'updated_at'</span> =&gt; <span class="string">'1392559490'</span>,</span><br><span class="line">    <span class="string">'email'</span> =&gt; <span class="string">'sfriesen@jenkins.info'</span>,</span><br><span class="line">  ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写测试方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginUser</span><span class="params">(FunctionalTester $I)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  $I-&gt;amOnRoute(<span class="string">'site/login'</span>);</span><br><span class="line">  $I-&gt;fillField(<span class="string">'LoginForm[username]'</span>, <span class="string">'erau'</span>);</span><br><span class="line">  $I-&gt;fillField(<span class="string">'LoginForm[password]'</span>, <span class="string">'password_0'</span>);</span><br><span class="line">  $I-&gt;click(<span class="string">'login-button'</span>);</span><br><span class="line">  $I-&gt;see(<span class="string">'退出 (erau)'</span>);</span><br><span class="line">  $I-&gt;dontSeeLink(<span class="string">'登录'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行功能测试</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codecept run</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="一些其它说明"><a href="#一些其它说明" class="headerlink" title="一些其它说明"></a>一些其它说明</h2><ol>
+<li><p>_before的使用</p>
+<p>比如我们在做登录功能测试时，不仅要测试正确的账号密码是否可以登录，还要考虑用户名密码为空时，是否会显示用户名密码不能为空这样的提示。<br>也要测试错误的密码是否会提示密码错误。这就需要我们每次测试之前跳转到登录页面。</p>
+<p>因此可以写如下代码，每次测试时，恢复路由。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_before</span><span class="params">(FunctionalTester $I)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> $I-&gt;amOnRoute(<span class="string">'site/login'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="验收测试"><a href="#验收测试" class="headerlink" title="验收测试"></a>验收测试</h2><p>验收测试编写流程和功能测试大体相同，不再赘述。</p>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">小九博客</a>
+<br>
+<div class="social">
+如果文章对您有所帮助，希望继续支持，您的支持是我最大的动力
+<a href="/about/#捐助本站"><i class="fa fa-fw fa-jpy"></i>捐助</a>
+</div>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/01/24/Yii2-Event事件-场景应用.html" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        owner:"nash-x9",
+        repo:"Nash-x9.github.io",
+        oauth: {
+          client_id:"81a097d6842e67e44651",
+          client_secret:"45250df95d18ce96eccf32195d7d7fb5e6607268"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>重头再来，新的起点！ <br/>
+Hello World! <br/>
+<hr/>本站使用主题 <a href="https://github.com/shenliyang/hexo-theme-snippet/">snippet</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/nash-x9" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:x9_sec@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://wpa.qq.com/msgrd?v=3&uin=1649880988&site=qq&menu=yes" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="http://t.qq.com/txzcmt" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/php/"><i class="fa" aria-hidden="true">PHP</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/"><i class="fa" aria-hidden="true">其它</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/backend/Yii2/"><i class="fa" aria-hidden="true">Yii2</i></a><span class="category-list-count">9</span></li></ul></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/"><i class="fa" aria-hidden="true">一月 2018</i></a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/DatePicker/" style="font-size: 10px;">DatePicker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 16.67px;">PHP</a> <a href="/tags/PHPUnit/" style="font-size: 13.33px;">PHPUnit</a> <a href="/tags/PHP资源/" style="font-size: 10px;">PHP资源</a> <a href="/tags/Yii2/" style="font-size: 20px;">Yii2</a> <a href="/tags/Yii2工具/" style="font-size: 10px;">Yii2工具</a> <a href="/tags/Yii2教程/" style="font-size: 10px;">Yii2教程</a> <a href="/tags/codeception/" style="font-size: 16.67px;">codeception</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/php框架/" style="font-size: 10px;">php框架</a> <a href="/tags/php组件/" style="font-size: 10px;">php组件</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a> <a href="/tags/yii2-audit/" style="font-size: 10px;">yii2-audit</a> <a href="/tags/yii2-editable/" style="font-size: 10px;">yii2-editable</a> <a href="/tags/yii2-event/" style="font-size: 13.33px;">yii2-event</a> <a href="/tags/yii2-事件/" style="font-size: 10px;">yii2-事件</a> <a href="/tags/yii2事件/" style="font-size: 10px;">yii2事件</a> <a href="/tags/单元测试/" style="font-size: 16.67px;">单元测试</a> <a href="/tags/学习资料/" style="font-size: 13.33px;">学习资料</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://www.shenliyang.com" class="fa" target="_blank">snippet作者博客</a>
+        
+            <a href="http://www.zyload.com" class="fa" target="_blank">资源树</a>
+        
+            <a href="http://www.kriss.pub/" class="fa" target="_blank">kriss的博客</a>
+        
+            <a href="http://www.daixiaorui.com" class="fa" target="_blank">代潇瑞博客</a>
+        
+		<hr />
+			<a href="https://coding.net/pages/">
+				<img src="/img/codingPages.png" alt="本博客托管于Coding" width="150px" />
+			</a>
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
