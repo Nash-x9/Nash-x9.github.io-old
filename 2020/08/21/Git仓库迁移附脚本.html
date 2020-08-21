@@ -188,7 +188,7 @@
 <p>在开发过程中，可能遇到Git仓库搬家或Git仓库同步的窘境，本文记录一次Git仓库同步过程，同样也可用于仓库迁移。</p>
 </blockquote>
 <h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ul>
-<li>环境：<br>仅拥有仓库的读权限，不具备修改和推送的权限。</li>
+<li>环境：<br>仅拥有仓库A的读权限，不具备修改和推送的权限。</li>
 <li>目标：<br>将仓库A的代码定期推送/同步至仓库B</li>
 </ul>
 <blockquote>
@@ -262,7 +262,6 @@
 </ul>
 <p><strong>2.写shell脚本的过程中，小A无意间还学会了linux中date命令的详细使用</strong></p>
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">date</span> +%s  #获取当前时间戳 <span class="number">1598016486</span></span><br><span class="line"><span class="keyword">date</span> +%x  #获取日期 <span class="number">2020</span>/<span class="number">08</span>/<span class="number">21</span></span><br><span class="line"><span class="keyword">date</span> +%X  #获取时间 <span class="number">21</span>:<span class="number">27</span>:<span class="number">27</span></span><br><span class="line"><span class="keyword">date</span> +%s -r <span class="keyword">file</span>.jar #获取<span class="keyword">file</span>.jar文件的时间戳</span><br></pre></td></tr></table></figure>
-
     </div>
 
     <div class="post-footer">   
